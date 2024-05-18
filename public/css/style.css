@@ -1,0 +1,18 @@
+:root{
+  --CARD-COLOR: #353935;
+
+}
+
+#login-form-container {
+  background-color: var(--CARD-COLOR)
+}
+
+#navbar {
+  background-color: #16161d
+}
+
+#nav-small-screen ,
+#nav-small-screen-form
+{
+  background-color: #16161d
+}

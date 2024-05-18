@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const UsersModel = require('../model/UsersModel')
-
+const AdminsModel = require('../model/AdminsModel')
 
 // * LOGIN
 
@@ -16,7 +16,7 @@ const loginController = async (req, res) => {
   const { email, password } = req.body
   try {
     if (!email || !password) return res.status(400).json({ "message": "email and password required" })
-    const foundUser = await UsersModel.findOne({email}) 
+    const foundUser = await AdminsModel.findOne({email}) 
     if (!foundUser) return res.status(404).json({ message: "invalid username" })
     const isMatch = await bcrypt.compare(password, foundUser.password)
     if (!isMatch) return res.status(401).json({ message: "invalid password" })
@@ -47,6 +47,7 @@ const logoutController = async (req, res) => {
   }
 }
 
+
 // * SIGN UP
 const getSignUpPageController = async (req, res) => {
   console.log(`signup page ${req.session?.authorized}`)
@@ -55,7 +56,7 @@ const getSignUpPageController = async (req, res) => {
 }
 
 const signUpController = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body
+  const { firstName, lastName, email, password  } = req.body
   try {
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = {
