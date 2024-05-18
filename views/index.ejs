@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Document</title>
+</head>
+
+<body class="" >
+
+  <header id="home-header" ">
+    <nav class=" navbar bg-success-subtle d-flex justify-content-end fixed-top ">
+      <div class=" nav-item px-5">
+    <button class=" btn btn-secondary " id="logout-btn">logout</button>
+    </div>
+    </nav>
+  </header>
+
+  <div style="width: 100%; height: 50px;">dada</div>
+  <div class="container-fluid mt-5 d-flex flex-row flex-wrap justify-content-evenly  gap-2 "  > 
+    <% images.forEach(image=> { %>
+      <section class="col-12 col-sm-6 col-md-4 col-lg-3  p-2 ">
+        <div class="rounded-3 shadow-lg ">
+          <img class="rounded object-fit-cover img-fluid " src="/images/<%= image %>" alt="<%= image %>">
+        </div>
+      </section>
+      <% }) %>
+  </div>
+
+
+
+
+  <script src="/js/homeScript.js"></script>
+</body>
+
+</html>

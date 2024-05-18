@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/loginStyles.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container  d-flex  align-items-center  justify-content-center " style="height: 100vh;">
+
+    <section class="container col-lg-5 col-sm-8 col-12">
+      <div class="w-100 d-flex  justify-content-center ">
+        <h1 class="">login</h1>
+      </div>
+      <form action="" class=" p-2 " id="login-form">
+        <div class="my-1" >
+          <label class="col-2 form-label" for="email">email</label>
+          <input class="col-9 form-control" id="email" type="email" placeholder="example@gmail.com">
+          <small class="form-text text-danger opacity-0" >error message</small>
+        </div>
+        <div class="my-1">
+          <label class="form-label " for="password">password</label>
+          <input class="form-control   " id="password" type="password">
+          <small class="form-text text-danger opacity-0 " >error message</small>
+        </div>
+
+
+        <button class="btn btn-success w-100 mb-2" id="submit-btn" onsubmit="submit" disabled > submit</button>
+        <a class="btn btn-primary   w-100" id="submit-btn" href="/auth/signup"  > sign up</a>
+      </form>
+    </section>
+  </div>
+
+  <script src="/js/loginScript.js"></script>
+</body>
+
+</html>

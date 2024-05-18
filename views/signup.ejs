@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/loginStyles.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="container justify-content-center align-content-center  " style="height: 100vh;">
+
+    <section class="container  bg-secondary-subtle  col-lg-4 col-lg-6 col-sm-8 rounded-1">
+      <div class="w-100 d-flex  justify-content-center my-1">
+        <h2>Sign up</h2>
+      </div>
+
+      <form action="" class="d-flex justify-content-center " id="signup-form">
+        <div class="d-flex flex-column ">
+          <div class="d-flex flex-sm-row flex-column  justify-content-between   w-100">
+            <div class="col-sm-6  col-12 d-flex flex-column   ">
+              <label class="form-label" for="firstname">First name</label>
+              <input class="form-control" type="text" id="firstname" />
+              <small class="form-text text-danger opacity-0">error</small>
+            </div>
+            <div class="col-sm-5 col-12 d-flex flex-column   ">
+              <label class="form-label" for="lastname">Last name</label>
+              <input class="form-control" type="text" id="lastname" />
+              <small class="form-text text-danger opacity-0">error</small>
+            </div>
+          </div>
+
+          <div class="my-1">
+            <label class="col-2 form-label" for="email">email</label>
+            <input class="col-9 form-control" id="email" type="email" placeholder="example@gmail.com">
+            <small class="form-text text-danger opacity-0">error message</small>
+          </div>
+          <div class="my-1">
+            <label class="form-label " for="password">password</label>
+            <input class="form-control   " id="password" type="password">
+            <small class="form-text text-danger opacity-0 ">error message</small>
+          </div>
+          <div class="my-1">
+            <label class="form-label " for="confirm-password">confirm password</label>
+            <input class="form-control   " id="confirm-password" type="password">
+            <small class="form-text text-danger opacity-0 ">error message</small>
+          </div>
+
+          <button class="btn btn-success  mb-3" id="signup-btn" onsubmit="submit" disabled  >Sign up</button>
+          <a class="btn btn-primary mb-3" id="signup-btn" href="/auth/login"  >login</a>
+        </div>
+
+      </form>
+    </section>
+  </div>
+
+
+  <script src="/js/signupScript.js"></script>
+</body>
+
+</html>
