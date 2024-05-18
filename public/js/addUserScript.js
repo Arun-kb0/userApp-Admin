@@ -1,60 +1,79 @@
-const signupBtn = document.getElementById("signup-btn")
 const email = document.getElementById("email")
 const password = document.getElementById("password")
-const confirmPassword = document.getElementById("confirm-password")
+const objectIdString = document.getElementById("objectid-string")
 const firstName = document.getElementById("firstname")
 const lastName = document.getElementById("lastname")
 const signupForm = document.getElementById("signup-form")
+const createBtn = document.getElementById("create-btn")
+const updateBtn = document.getElementById("update-btn")
 
-
-// * 
 let isValidationSuccess = false
+
+
+
+// * update user 
+const updateUser = (user) => {
+  console.log("update user ")
+  user._id = objectIdString.value.trim()
+  console.log(user)
+  fetch('/edit/update', {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(user),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((res) => res.json())
+    .then((data)=> alert(data.message))
+    .catch((error) => console.log(error))
+}
+
+// *create user 
+const createUser = (user) => {
+  checkFirstName()
+  checkLastName()
+  checkEmail()
+  checkPassword()
+  if (!isValidationSuccess) {
+    console.warn("validation failed")
+    return
+  }
+  console.log("create user")
+  fetch('/edit/create', {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(user),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      alert(data.message)
+    })
+    .catch((error) => console.log(error))
+}
+
 
 // * event Listener functions
 
 // * submit
 const submitSignup = (e) => {
   e.preventDefault()
-  
-  checkFirstName()
-  checkLastName()
-  checkEmail()
-  checkPassword()
-  checkConfirmPwd()
 
-  if (!isValidationSuccess) {
-    console.warn("validation failed")
-    return 
-  }
-
-  const data = {
-    firstName: firstName.value.trim(),
-    lastName: lastName.value.trim(),
+  const user = {
+    firstname: firstName.value.trim(),
+    lastname: lastName.value.trim(),
     email: email.value.trim(),
     password: password.value.trim(),
   }
-  console.log(data)
 
-  fetch("/auth/signup", {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data)
-      if (data?.user) {
-        localStorage.setItem("user", JSON.stringify(data.user))
-        window.location.href = '/'
-      } else {
-        alert(data.message)
-      }
-    })
-    .catch((err) => {
-      console.log(err.message)
-    })
+  if (e.submitter.value === 'update') {
+    updateUser(user)
+  } else {
+    createUser(user)
+  }
 }
 
 
@@ -75,7 +94,7 @@ const checkEmail = () => {
 const checkPassword = () => {
   const passwordValue = password.value.trim()
   if (passwordValue === "") {
-    setErrorFor(password, 'cannot be empty')
+    setErrorFor(password, 'password required create user')
   } else if (!isPassword(passwordValue)) {
     setErrorFor(password, 'must be 8 characters')
   } else {
@@ -104,19 +123,6 @@ const checkLastName = () => {
     setErrorFor(lastName, 'not valid last name')
   } else {
     setSuccessFor(lastName)
-  }
-}
-
-// * confirm password
-const checkConfirmPwd = () => {
-  const pwdValue = password.value.trim()
-  const confirmPwdValue = confirmPassword.value.trim()
-  if (confirmPwdValue === '') {
-    setErrorFor(confirmPassword, 'cannot be empty')
-  } else if (!isPasswordSame(pwdValue, confirmPwdValue)) {
-    setErrorFor(confirmPassword, 'password miss match')
-  } else {
-    setSuccessFor(confirmPassword)
   }
 }
 
@@ -156,8 +162,8 @@ setErrorFor = (input, msg) => {
   const small = inputParent.querySelector('small')
   small.classList = "form-text text-danger opacity-1"
   small.textContent = msg
-  signupBtn.disabled = true
-  isValidationSuccess=false
+  createBtn.disabled = true
+  isValidationSuccess = false
   console.log(isValidationSuccess)
 }
 
@@ -165,8 +171,8 @@ setSuccessFor = (input) => {
   const inputParent = input.parentElement
   const small = inputParent.querySelector('small')
   small.classList = 'form-text text-danger opacity-0'
-  signupBtn.disabled = false
-  isValidationSuccess=true
+  createBtn.disabled = false
+  isValidationSuccess = true
   console.log(isValidationSuccess)
 }
 
@@ -178,7 +184,6 @@ setSuccessFor = (input) => {
 
 email.addEventListener('input', checkEmail)
 password.addEventListener('input', checkPassword)
-confirmPassword.addEventListener('input', checkConfirmPwd)
 firstName.addEventListener('input', checkFirstName)
 lastName.addEventListener('input', checkLastName)
 signupForm.addEventListener('submit', submitSignup)

@@ -9,9 +9,9 @@ router.route('/login')
 
 router.get('/logout', logoutController)
 
-router.route('/signup')
-  .get(getSignUpPageController)
-  .post(signUpController)
+// router.route('/signup')
+//   .get(getSignUpPageController)
+//   .post(signUpController)
 
 
 module.exports = router

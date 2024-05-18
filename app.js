@@ -11,6 +11,7 @@ const session = require('express-session')
 const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const UsersModel = require('./model/UsersModel')
+const userRouter = require('./routes/userRouter')
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -44,6 +45,7 @@ app.set("view engine", "ejs")
 // * paths
 app.use('/', homeRouter)
 app.use('/auth', authRouter)
+app.use('/edit',userRouter)
 
 
 mongoose.connection.once('connected', () => {

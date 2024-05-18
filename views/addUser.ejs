@@ -5,17 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/loginStyles.css">
-  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Add user</title>
 </head>
 
-<body>
+<body class="bg-black">
 
   <div class="container justify-content-center align-content-center  " style="height: 100vh;">
 
-    <section class="container  bg-secondary-subtle  col-lg-4 col-lg-6 col-sm-8 rounded-1">
+    <section class="container py-2 text-light col-lg-4 col-lg-6 col-sm-8 rounded-1" id="add-user-container">
       <div class="w-100 d-flex  justify-content-center my-1">
-        <h2>Sign up</h2>
+        <h2 >add or edit user</h2>
       </div>
 
       <form action="" class="d-flex justify-content-center " id="signup-form">
@@ -23,34 +23,34 @@
           <div class="d-flex flex-sm-row flex-column  justify-content-between   w-100">
             <div class="col-sm-6  col-12 d-flex flex-column   ">
               <label class="form-label" for="firstname">First name</label>
-              <input class="form-control" type="text" id="firstname" />
+              <input class="form-control" type="text" id="firstname" value="<%= user.firstname %>"/>
               <small class="form-text text-danger opacity-0">error</small>
             </div>
             <div class="col-sm-5 col-12 d-flex flex-column   ">
               <label class="form-label" for="lastname">Last name</label>
-              <input class="form-control" type="text" id="lastname" />
+              <input class="form-control" type="text" id="lastname" value="<%= user.lastname %>" />
               <small class="form-text text-danger opacity-0">error</small>
             </div>
           </div>
 
           <div class="my-1">
             <label class="col-2 form-label" for="email">email</label>
-            <input class="col-9 form-control" id="email" type="email" placeholder="example@gmail.com">
+            <input class="col-9 form-control" id="email" type="email" placeholder="example@gmail.com" value="<%= user.email %>">
             <small class="form-text text-danger opacity-0">error message</small>
           </div>
           <div class="my-1">
             <label class="form-label " for="password">password</label>
-            <input class="form-control   " id="password" type="password">
+            <input class="form-control   " id="password" type="text"  placeholder="optional"">
             <small class="form-text text-danger opacity-0 ">error message</small>
           </div>
           <div class="my-1">
-            <label class="form-label " for="confirm-password">confirm password</label>
-            <input class="form-control   " id="confirm-password" type="password">
+            <label class="form-label " for="objectid-string">user id</label>
+            <input class="form-control   " id="objectid-string" type="text" value="<%= user._id %>">
             <small class="form-text text-danger opacity-0 ">error message</small>
           </div>
 
-          <button class="btn btn-success  mb-3" id="signup-btn" onsubmit="submit" disabled  >Sign up</button>
-          <a class="btn btn-primary mb-3" id="signup-btn" href="/auth/login"  >login</a>
+          <button class="btn btn-success  mb-3" id="create-btn" onsubmit="submit" disabled value="create" >create new user</button>
+          <button class="btn btn-primary mb-3" id="update-btn" onsubmit="submit" value="update" >update existing user</button>
         </div>
 
       </form>
@@ -58,7 +58,7 @@
   </div>
 
 
-  <script src="/js/signupScript.js"></script>
+  <script src="/js/addUserScript.js"></script>
 </body>
 
 </html>
