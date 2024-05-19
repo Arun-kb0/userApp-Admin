@@ -14,6 +14,7 @@ const UsersModel = require('./model/UsersModel')
 const userRouter = require('./routes/userRouter')
 const { auth } = require('./middleware/authMiddleware')
 
+
 const PORT = process.env.PORT || 3000
 const app = express()
 connectDB()
