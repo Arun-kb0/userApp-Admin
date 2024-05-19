@@ -21,17 +21,19 @@ form.addEventListener('submit', (e) => {
       "Content-Type": "application/json"
     }
   })
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data)
-      if (data?.user) {
-        localStorage.setItem("user", JSON.stringify(data.user))
-        window.location.href = '/'
-      } else {
-        createAlert(data.message)
-      }
+    .then(res => {
+      res.json()
+        .then((data) => {
+          if (data?.user) {
+            localStorage.setItem("user", JSON.stringify(data.user))
+            window.location.href = '/'
+          } else {
+            createAlert(data.message)
+          }
+        })
     })
     .catch((err) => {
+      console.log(err)
       createAlert(err.message)
     })
 })

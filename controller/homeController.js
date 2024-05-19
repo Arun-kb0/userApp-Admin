@@ -2,16 +2,13 @@ const UsersModel = require("../model/UsersModel")
 const { Types } = require("mongoose")
 
 
-const homeController = async (req, res) => {
-  if (!req.session.authorized) return res.redirect('/auth/login')
+const homeController = async (req, res,next) => {
   try {
     const users = await UsersModel.find()
     res.render('index', { users })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: "unable to load files" })
+    res.status(500).json({message: 'get home failed'})
   }
-
 }
 
 const getOneUserController = async (req, res) => {

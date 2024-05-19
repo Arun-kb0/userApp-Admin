@@ -12,6 +12,7 @@ const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const UsersModel = require('./model/UsersModel')
 const userRouter = require('./routes/userRouter')
+const { auth } = require('./middleware/authMiddleware')
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -25,7 +26,7 @@ app.use(cookeParser())
 app.use(session({
   secret: "xyz",
   saveUninitialized: false,
-  resave:true,
+  resave: true,
   cookie: {
     sameSite: 'strict',
     maxAge: 60 * 1000 * 60
@@ -43,10 +44,9 @@ app.set("view engine", "ejs")
 
 
 // * paths
-app.use('/', homeRouter)
 app.use('/auth', authRouter)
-app.use('/edit',userRouter)
-
+app.use('/', auth, homeRouter)
+app.use('/edit', auth, userRouter)
 
 
 mongoose.connection.once('connected', () => {

@@ -15,7 +15,7 @@ const getLoginPageController = (req, res) => {
 const loginController = async (req, res) => {
   const { email, password } = req.body
   try {
-    if (!email || !password) return res.status(400).json({ "message": "email and password required" })
+    if ((!email && email==='') || (!password && password==='') ) return res.status(400).json({ "message": "email and password required" })
     const foundUser = await AdminsModel.findOne({email}) 
     if (!foundUser) return res.status(404).json({ message: "invalid username" })
     const isMatch = await bcrypt.compare(password, foundUser.password)
@@ -27,8 +27,8 @@ const loginController = async (req, res) => {
     req.session.authorized = true
     console.log(`${req.session.user.email} login success`)
     res.status(200).json({ message: `login success !`, user: req.session.user })
-  } catch (err) {
-    res.sendStatus(500)
+  } catch (error) {
+    res.status(500).json({ message:"login failed"})
   }
 }
 

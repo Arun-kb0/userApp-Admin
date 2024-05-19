@@ -20,3 +20,9 @@
 #add-user-container{
   background-color: #40404F;
 }
+
+#edit-back-svg{
+  fill:lightseagreen;
+  width: 25px;
+  height: 25px;
+}

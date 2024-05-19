@@ -1,6 +1,7 @@
 const logoutBtn = document.getElementById('logout-btn')
 const searchForm = document.getElementById("nav-screen-form")
 const searchInput = document.getElementById("search-input")
+const navCollapseLogout = document.getElementById('nav-collapse-logout-btn')
 
 // * search
 searchForm.addEventListener('submit', (e) => {
@@ -19,10 +20,10 @@ searchForm.addEventListener('submit', (e) => {
   })
     .then((res) => {
       if (res.status === 200) {
-        window.location.href =url
+        window.location.href = url
       } else {
         return res.json()
-        .then(data => createAlert(data.message))
+          .then(data => createAlert(data.message))
       }
     })
     .catch(error => {
@@ -61,6 +62,8 @@ const getUser = (email) => {
 
 
 logoutBtn.addEventListener('click', handleLogout)
+navCollapseLogout.addEventListener('click', handleLogout)
+
 
 // * adding event to user row 
 // * get user data
