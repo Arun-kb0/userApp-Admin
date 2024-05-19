@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt')
 const UsersModel = require('../model/UsersModel')
-const {  Types } = require('mongoose')
+const { Types } = require('mongoose')
 
 // * create user
-const createUser = async (req, res) => {
+const createUserController = async (req, res) => {
   const { email, password, firstname, lastname } = req.body
   try {
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
 }
 
 // * update user 
-const updateUser = async (req, res) => {
+const updateUserController = async (req, res) => {
   const { email, password, firstname, lastname, _id } = req.body
   console.log(req.body)
   try {
@@ -53,7 +53,7 @@ const updateUser = async (req, res) => {
         { _id: _id },
         user
       )
-    } else if(email!== '') {
+    } else if (email !== '') {
       foundUser = await UsersModel.find({ email: email })
       const user = await createUserObj()
       console.log(user)
@@ -71,7 +71,37 @@ const updateUser = async (req, res) => {
 
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: "cannot update user" })
+    res.status(500).json({ message: "update user failed" })
+  }
+}
+
+
+// * delete user
+const deleteUserController = async (req, res) => {
+  const { email, _id } = req.body
+  try {
+    if (_id === '' && email === '') {
+      res.status(400).json({ message: "email or _id required" })
+    }
+
+    let result
+    if (_id !== '' && Types.ObjectId.isValid(_id)) {
+      result = await UsersModel.deleteOne({ _id: _id })
+    } else if (email !== '') {
+      result = await UsersModel.deleteOne({ email: email })
+    }
+    console.log("result")
+    console.log(result)
+    if (result?.deletedCount === 0) {
+      return res.status(404).json({ message: `user not found` })
+    }
+    if (result?.deletedCount === 1) {
+      return res.status(200).json({ message: `user deleted` })
+    }
+    return res.status(400).json({ message: "email or _id required " })
+  } catch (error) {
+    res.status(500).json({ message: "delete user failed" })
+    console.log(error)
   }
 }
 
@@ -84,10 +114,10 @@ const updateUser = async (req, res) => {
 
 
 
-
 module.exports = {
-  createUser,
-  updateUser
+  createUserController,
+  updateUserController,
+  deleteUserController
 }
 
 

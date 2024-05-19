@@ -6,16 +6,47 @@ const lastName = document.getElementById("lastname")
 const signupForm = document.getElementById("signup-form")
 const createBtn = document.getElementById("create-btn")
 const updateBtn = document.getElementById("update-btn")
+const deleteBtn = document.getElementById("delete-btn")
 
 
 let isValidationSuccess = false
 let isUpdateValidationSuccess = false
+let isDeleteValidationSuccess = false
 
-if (typeof createAlert === 'function') {
-  console.log("create alert file loaded")
-} else {
-  console.log("create alert file not loaded")
+
+
+// * delete user
+const deleteUser = (user) => {
+  console.log('delete user ')
+  const id = objectIdString.value.trim()
+  isDeleteValidationSuccess = (
+    isEmail(user.email, true) || id.length === 24
+  ) ? true : false
+
+  if (!isDeleteValidationSuccess) {
+    const message = 'delete validation failed'
+    const description = 'id or email required for delete'
+    createAlert(message, description)
+  }
+
+  const userData = {
+    email: user.email,
+    _id: id
+  }
+  fetch('/edit/delete', {
+    method: 'DELETE',
+    credentials: 'include',
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((res) => res.json())
+    .then((data) => createAlert(data.message))
+    .catch((error) => createAlert(error.message))
 }
+
+
 
 // * update user 
 const updateUser = (user) => {
@@ -50,7 +81,7 @@ const updateUser = (user) => {
   })
     .then((res) => res.json())
     .then((data) => createAlert(data.message))
-    .catch((error) => console.log(error))
+    .catch((error) => createAlert(error.message))
 }
 
 // *create user 
@@ -94,10 +125,18 @@ const submitSignup = (e) => {
     password: password.value.trim(),
   }
 
-  if (e.submitter.value === 'update') {
-    updateUser(user)
-  } else {
-    createUser(user)
+  switch (e.submitter.value) {
+    case 'update':
+      updateUser(user)
+      break;
+    case 'create':
+      createUser(user)
+      break
+    case 'delete':
+      deleteUser(user)
+      break
+    default:
+      console.warn('invalid button value')
   }
 }
 
