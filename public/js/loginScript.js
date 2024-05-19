@@ -28,11 +28,11 @@ form.addEventListener('submit', (e) => {
         localStorage.setItem("user", JSON.stringify(data.user))
         window.location.href = '/'
       } else {
-        alert(data.message)
+        createAlert(data.message)
       }
     })
     .catch((err) => {
-      console.log(err.message)
+      createAlert(err.message)
     })
 })
 

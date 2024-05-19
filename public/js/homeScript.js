@@ -2,11 +2,12 @@ const logoutBtn = document.getElementById('logout-btn')
 const searchForm = document.getElementById("nav-screen-form")
 const searchInput = document.getElementById("search-input")
 
+// * search
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault()
   const searchString = searchInput.value.trim()
   if (searchString === '') {
-    alert('cannot be empty')
+    createAlert('cannot be empty')
     return
   }
   const url = new URL('/search', window.location.origin)
@@ -20,11 +21,14 @@ searchForm.addEventListener('submit', (e) => {
       if (res.status === 200) {
         window.location.href =url
       } else {
-        res.json()
-        .then(data => alert(data.message))
+        return res.json()
+        .then(data => createAlert(data.message))
       }
     })
-    .catch(error => { console.log(error) })
+    .catch(error => {
+      createAlert(error.message)
+      console.log(error.message)
+    })
 })
 
 // * logout
@@ -42,12 +46,12 @@ const handleLogout = (e) => {
         sessionStorage.clear()
         window.location.reload(true)
       } else {
-        alert('logout failed')
+        createAlert('logout failed')
       }
     })
     .catch(error => {
       console.log("logout error", error)
-      alert('an error occurred during logout')
+      createAlert('an error occurred during logout')
     })
 }
 
@@ -76,10 +80,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (res.status == 200) {
           window.location.href = url
         } else {
+          createAlert('get user failed')
           console.log("error")
         }
       })
-      .catch(error => console.warn(error))
+      .catch(error => {
+        createAlert(error.message)
+        console.warn(error)
+
+      })
   }
 
   userRows.forEach(row => {

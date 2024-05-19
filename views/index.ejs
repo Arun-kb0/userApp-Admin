@@ -20,8 +20,8 @@
       class=" navbar navbar-dark navbar-expand-lg d-md-flex d-none  justify-content-between  align-items-center px-3 "
       id="navbar">
       <a class="navbar-brand text-light  " href="/">Admin panel</a>
-      <form class=" bg-light col-sm-5 rounded-2 flex-row d-md-flex d-none">
-        <input class="form-control col-md-6 me-2 " type="search" placeholder="search users" />
+      <form id="nav-screen-form" class=" bg-light col-sm-5 rounded-2 flex-row d-md-flex d-none">
+        <input id="search-input" class="form-control col-md-6 me-2 " type="search" placeholder="search users" />
         <button class=" btn btn-sm btn-outline-success my-1 " type="submit">search</button>
       </form>
       <button class=" btn btn-outline-secondary text-light btn-sm d-md-block d-none" id="logout-btn">logout</button>
@@ -50,6 +50,12 @@
     </nav>
 
   </header>
+
+  <!-- * alert box -->
+  <div class="d-flex  justify-content-center mt-2 w-100">
+    <div class=" d-block col-lg-6 col-sm-8 col-10" id="alert-container"> </div>
+  </div>
+  <!-- * end *  -->
 
   <!-- * MAIN  -->
   <div class="py-3 d-flex w-100 justify-content-center align-items-center " style="width: 100%; height: 50px;">
@@ -94,7 +100,7 @@
   </div>
 
 
-
+  <script src="/js/alertsCreators.js"></script>
   <script src="/js/homeScript.js"></script>
 </body>
 
