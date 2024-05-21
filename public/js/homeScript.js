@@ -8,7 +8,7 @@ searchForm.addEventListener('submit', (e) => {
   e.preventDefault()
   const searchString = searchInput.value.trim()
   if (searchString === '') {
-    createAlert('cannot be empty')
+  createAlert('cannot be empty')
     return
   }
   const url = new URL('/search', window.location.origin)
